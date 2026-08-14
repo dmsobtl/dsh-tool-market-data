@@ -1,0 +1,20 @@
+{
+  "name": "dsh-tool-market-data",
+  "version": "0.1.0",
+  "description": "DSH plugin: multi-market financial data — A-shares, US stocks, crypto. Quotes, K-lines, fundamentals, and screening.",
+  "type": "module",
+  "main": "src/index.ts",
+  "exports": { ".": "./src/index.ts" },
+  "scripts": { "test": "vitest run", "build": "tsc" },
+  "peerDependencies": {
+    "@deepseek-ai/cordis": ">=1.0.0"
+  },
+  "dependencies": {},
+  "devDependencies": {
+    "@deepseek-ai/cordis": "latest",
+    "typescript": "^5.5.0",
+    "vitest": "^3.0.0"
+  },
+  "keywords": ["dsh-plugin", "deepseek-harness", "quant", "market-data", "stocks", "crypto"],
+  "license": "MIT"
+}
