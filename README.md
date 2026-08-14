@@ -20,12 +20,12 @@ dsh plugin add dsh-tool-market-data
 ## 配置
 
 ```yaml
-- id: market-data
-  plugin: dsh-tool-market-data
-  config:
-    defaultMarket: cn              # cn | us | crypto
-    binanceBaseUrl: https://api.binance.com
-    # alphaVantageKey: ${ALPHA_VANTAGE_KEY}  # 可选，扩展美股数据
+- insert:
+    - id: market-data
+      name: dsh-tool-market-data
+      config:
+        defaultMarket: cn              # cn | us | crypto
+        binanceBaseUrl: https://api.binance.com
 ```
 
 ## 市场自动识别

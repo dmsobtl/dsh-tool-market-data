@@ -1,37 +1,36 @@
 /**
  * dsh-tool-market-data
  *
- * Multi-market financial data plugin. Supports:
- * - A-shares (via free APIs: sina, eastmoney, akshare)
- * - US stocks (via Yahoo Finance, Alpha Vantage)
- * - Crypto (via Binance, CoinGecko)
- *
- * Tools: market_quote, market_kline, market_screen, market_fundamentals
+ * Multi-market financial data plugin: A-shares, US stocks, and crypto.
+ * Tools: market_quote, market_kline, market_screen, market_fundamentals.
  */
 
 import type { Context } from '@deepseek-ai/cordis'
-import { quoteTool } from './tools/quote.ts'
-import { klineTool } from './tools/kline.ts'
-import { screenTool } from './tools/screen.ts'
-import { fundamentalsTool } from './tools/fundamentals.ts'
+import z from '@deepseek-ai/schemastery'
+import { quoteTool } from './tools/quote.js'
+import { klineTool } from './tools/kline.js'
+import { screenTool } from './tools/screen.js'
+import { fundamentalsTool } from './tools/fundamentals.js'
+
+export { detectMarket } from './detect.js'
+export type { Market, ResolvedConfig } from './config.js'
 
 export const name = 'tool-market-data'
 export const inject = ['tools']
 
-export interface Config {
-  alphaVantageKey?: string
-  binanceBaseUrl?: string
-  defaultMarket?: 'cn' | 'us' | 'crypto'
-}
+export const Config = z.object({
+  defaultMarket: z.union([z.const('cn'), z.const('us'), z.const('crypto')]).default('cn'),
+  binanceBaseUrl: z.string().default('https://api.binance.com'),
+})
 
-export function apply(ctx: Context, config: Config) {
-  const tools = [
-    quoteTool(config),
-    klineTool(config),
-    screenTool(config),
-    fundamentalsTool(config),
-  ]
-  for (const tool of tools) {
-    ctx.tools.register(tool as any)
+export function apply(ctx: Context, config: { defaultMarket: 'cn' | 'us' | 'crypto'; binanceBaseUrl: string }) {
+  const resolved = { defaultMarket: config.defaultMarket, binanceBaseUrl: config.binanceBaseUrl }
+  for (const tool of [
+    quoteTool(resolved),
+    klineTool(resolved),
+    screenTool(resolved),
+    fundamentalsTool(resolved),
+  ]) {
+    ctx.tools.register(tool)
   }
 }

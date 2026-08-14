@@ -63,7 +63,7 @@ export async function fetchCNKline(symbol: string, period: string, limit: number
   const url = `https://push2his.eastmoney.com/api/qt/stock/kline/get?secid=${secid}&fields1=f1,f2,f3&fields2=f51,f52,f53,f54,f55,f56,f57&klt=${klt}&fqt=1&lmt=${limit}`
 
   const resp = await fetch(url)
-  const data = await resp.json()
+  const data = await resp.json() as any
   const klines = data?.data?.klines ?? []
 
   return klines.map((line: string) => {

@@ -31,7 +31,7 @@ export async function fetchUSQuote(symbol: string): Promise<USQuote> {
   const resp = await fetch(url, {
     headers: { 'User-Agent': 'Mozilla/5.0' },
   })
-  const data = await resp.json()
+  const data = await resp.json() as any
   const meta = data?.chart?.result?.[0]?.meta
   if (!meta) throw new Error(`No data for ${symbol}`)
 
@@ -57,7 +57,7 @@ export async function fetchUSKline(symbol: string, period: string, limit: number
   const resp = await fetch(url, {
     headers: { 'User-Agent': 'Mozilla/5.0' },
   })
-  const data = await resp.json()
+  const data = await resp.json() as any
   const result = data?.chart?.result?.[0]
   if (!result) throw new Error(`No kline data for ${symbol}`)
 

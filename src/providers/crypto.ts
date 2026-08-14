@@ -29,7 +29,7 @@ export async function fetchCryptoQuote(symbol: string, baseUrl?: string): Promis
   const url = `${baseUrl ?? 'https://api.binance.com'}/api/v3/ticker/24hr?symbol=${pair}`
   const resp = await fetch(url)
   if (!resp.ok) throw new Error(`Binance API error: ${resp.status}`)
-  const data = await resp.json()
+  const data = await resp.json() as any
 
   return {
     symbol: pair,
@@ -48,7 +48,7 @@ export async function fetchCryptoKline(symbol: string, period: string, limit: nu
   const url = `${baseUrl ?? 'https://api.binance.com'}/api/v3/klines?symbol=${pair}&interval=${interval}&limit=${limit}`
   const resp = await fetch(url)
   if (!resp.ok) throw new Error(`Binance API error: ${resp.status}`)
-  const data = await resp.json()
+  const data = await resp.json() as any
 
   return data.map((k: any[]) => ({
     date: new Date(k[0]).toISOString().split('T')[0],
