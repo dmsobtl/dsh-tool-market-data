@@ -1,5 +1,7 @@
 # dsh-tool-market-data
 
+> 兼容 dsh 0.2.1-rc.x（@deepseek-ai/cordis ~4.0.5、@deepseek-ai/dsh-tools ~0.2.1-rc.2）。v0.1.1 起 content block 为扁平结构、工具结果为 role:'tool' 消息。
+
 DSH 插件：多市场金融数据 — A 股、美股、加密货币行情/K 线/选股/基本面。
 
 ## 工具清单
